@@ -12,7 +12,7 @@ export default function Home() {
         <Link href="/auth/login" className={styles.button}>
           Login
         </Link>
-        <Link href="/auth/login" className={styles.button}>
+        <Link href="/inventory" className={styles.button}>
           Fake Login(temp)
         </Link>
       </main>
