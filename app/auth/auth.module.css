@@ -1,0 +1,68 @@
+.section {
+  background-color: rgb(7, 0, 101);
+  padding: 20px;
+  color: rgb(4, 183, 223);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.header {
+  color: rgb(4, 183, 223);
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 15%;
+  width: 100%;
+  text-align: center;
+}
+
+.input {
+  font-size: 16px;
+  background-color: white;
+  color: black;
+  padding: 10px;
+  border-radius: 5px;
+  width: 80%;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.inputTitle {
+  font-size: 14px;
+  color: rgb(4, 183, 223);
+  margin-bottom: 5px;
+}
+
+.mainButton {
+  padding: 8px 12px;
+  background-color: rgb(4, 183, 223);
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-top: 5px;
+  width: 100%;
+  max-width: 300px;
+  text-align: center;
+  border: none;
+}
+
+.mainButton:hover {
+  background-color: #411d79;
+}
+
+.userAgreementText {
+  font-size: 12px;
+  text-align: center;
+  color: rgb(4, 183, 223);
+  margin-top: 10px;
+  width: 80%;
+}
+
+.userAgreementSpan {
+  color: rgb(4, 183, 223);
+  text-decoration: underline;
+  cursor: pointer;
+}
