@@ -1,39 +1,54 @@
-"use client"; // Needed for interactivity like state
+"use client";
 
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./craft.module.css";
+import { useRouter } from 'next/navigation'
 
 export default function CraftingPage() {
+  const router = useRouter();
+
   const [quantity, setQuantity] = useState(1);
+
+  const handleGoHome = () => {
+    router.push("/"); // Navigate to home
+  };
 
   const handleCraft = () => {
     alert(`Crafting item using ${quantity} points!`);
   };
 
+  const handleSignOut = () => {
+    router.push("/");
+  };
+
+  const handleGoToInventory = () => {
+    router.push("/inventory");
+  };
+
+  const handleGoToAdventure = () => {
+    router.push("/adventure");
+  };
+
   return (
     <div className={styles.container}>
-      {/* Top Bar */}
       <div className={styles.topBar}>
-        <Link href="/">
-          <div className={styles.iconPlaceholder} />
-        </Link>
+        <button onClick={handleGoHome} className={styles.iconPlaceholder}>
+        </button>
         <h1 className={styles.title}>Crafting</h1>
-        <Link href="/" className={styles.signout}>Sign out</Link>
+        <button onClick={handleSignOut} className={styles.signout}>Sign out</button>
       </div>
 
-      {/* Main */}
-      <div className={styles.main}>
-        {/* Left side (optional back or art) */}
-        <Link href="/inventory" className={styles.section}>
-          <div className={styles.imagePlaceholder}>Inventory</div>
-        </Link>
 
-        {/* Center crafting content */}
+      <div className={styles.main}>
+        <button onClick={handleGoToInventory} className={styles.section}>
+          <div className={styles.imagePlaceholder}>Inventory</div>
+        </button>
+
         <div className={styles.craftingCenter}>
+
           <div className={styles.craftImage}>
-            {/* Replace with actual image */}
             <Image src="/crafting-icon.png" alt="Craft Item" width={150} height={150} />
           </div>
 
@@ -53,10 +68,9 @@ export default function CraftingPage() {
           </div>
         </div>
 
-        {/* Right side (optional adventure or info) */}
-        <Link href="/adventure" className={styles.section}>
+        <button onClick={handleGoToAdventure} className={styles.section}>
           <div className={styles.imagePlaceholder}>Adventure</div>
-        </Link>
+        </button>
       </div>
     </div>
   );
