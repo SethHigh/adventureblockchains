@@ -42,9 +42,10 @@ export default function CraftingPage() {
 
 
       <div className={styles.main}>
-        <button onClick={handleGoToInventory} className={styles.section}>
-          <div className={styles.imagePlaceholder}>Inventory</div>
+        <button onClick={handleGoToAdventure} className={styles.section}>
+          <div className={styles.imagePlaceholder}>Adventure</div>
         </button>
+
 
         <div className={styles.craftingCenter}>
 
@@ -68,8 +69,8 @@ export default function CraftingPage() {
           </div>
         </div>
 
-        <button onClick={handleGoToAdventure} className={styles.section}>
-          <div className={styles.imagePlaceholder}>Adventure</div>
+        <button onClick={handleGoToInventory} className={styles.section}>
+          <div className={styles.imagePlaceholder}>Inventory</div>
         </button>
       </div>
     </div>
