@@ -8,11 +8,11 @@ const Page = () => {
   const router = useRouter()
 
   async function gohome() {
-    await router.push('/')
+    await router.push('/') //navigate to specified page
   }
 
   async function gosignup() {
-    await router.push('/auth/signup')
+    await router.push('/auth/signup') //navigate to specified page
   }
 
   return (

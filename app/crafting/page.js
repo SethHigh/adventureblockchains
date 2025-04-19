@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import styles from "./craft.module.css";
 import { useRouter } from 'next/navigation'
 
@@ -12,23 +11,23 @@ export default function CraftingPage() {
   const [quantity, setQuantity] = useState(1);
 
   const handleGoHome = () => {
-    router.push("/"); // Navigate to home
+    router.push("/");//navigate to specified page
   };
 
   const handleCraft = () => {
-    alert(`Crafting item using ${quantity} points!`);
+    alert(`Crafting item using ${quantity} points!`);//prints affect of using points
   };
 
   const handleSignOut = () => {
-    router.push("/");
+    router.push("/");//navigate to specified page
   };
 
   const handleGoToInventory = () => {
-    router.push("/inventory");
+    router.push("/inventory");//navigate to specified page
   };
 
   const handleGoToAdventure = () => {
-    router.push("/adventure");
+    router.push("/adventure");//navigate to specified page
   };
 
   return (

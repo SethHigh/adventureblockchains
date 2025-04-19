@@ -1,20 +1,34 @@
-import Image from "next/image";
+"use client";
+import { useRouter } from 'next/navigation'
 import styles from "./page.module.css";
-import Link from "next/link";
 
 export default function Home() {
+  const router = useRouter();
+
+  const gosignup = async () => {
+    await router.push("/auth/signup"); //navigate to specified page
+  };
+
+  const gologin = async () => {
+    await router.push("/auth/login"); //navigate to specified page
+  };
+
+  const goFakeLogin = async () => {
+    await router.push("/inventory"); //navigate to specified page
+  };
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <Link href="/auth/signup" className={styles.button}>
+        <button className={styles.button} onClick={gosignup}>
           Sign up
-        </Link>
-        <Link href="/auth/login" className={styles.button}>
+        </button>
+        <button className={styles.button} onClick={gologin}>
           Login
-        </Link>
-        <Link href="/inventory" className={styles.button}>
-          Fake Login(temp)
-        </Link>
+        </button>
+        <button className={styles.button} onClick={goFakeLogin}>
+          Fake Login (temp)
+        </button>
       </main>
     </div>
   );

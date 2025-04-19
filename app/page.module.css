@@ -13,6 +13,7 @@
   min-height: 100svh;
   padding: 80px;
   gap: 64px;
+  background-color: #2e4b2e;
 }
 
 .main {
@@ -23,17 +24,16 @@
 }
 
 .button {
-    margin-top: 20px;
-    padding: 8px 12px;
-    width: 150%;
-    background-color: rgb(4, 183, 223);
-    color: rgb(255, 255, 255);
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 14px;
-  }
+  margin-top: 20px;
+  padding: 8px 12px;
+  width: 150%;
+  background-color: #a0522d;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
+}
 
-  .button:hover {
-    background-color: #411d79;
-  }
-
+.button:hover {
+  background-color: #874021;
+}

@@ -8,19 +8,19 @@ export default function AdventurePage() {
   const router = useRouter();
 
   const handleGoHome = () => {
-    router.push("/");
+    router.push("/");//navigate to specified page
   };
 
   const handleSignOut = () => {
-    router.push("/");
+    router.push("/");//navigate to specified page
   };
 
   const handleGoCrafting = () => {
-    router.push("/crafting");
+    router.push("/crafting");//navigate to specified page
   };
 
   const handleGoInventory = () => {
-    router.push("/inventory");
+    router.push("/inventory");//navigate to specified page
   };
 
   return (
