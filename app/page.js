@@ -1,35 +1,35 @@
-"use client";
-import { useRouter } from 'next/navigation'
-import styles from "./page.module.css";
+'use client';
 
-export default function Home() {
+import { useRouter } from 'next/navigation';
+import { ethers } from 'ethers';
+import { useWallet } from './context/WalletContext';
+
+export default function LoginPage() {
   const router = useRouter();
+  const { setWalletAddress } = useWallet();//set wallet
 
-  const gosignup = async () => {
-    await router.push("/auth/signup"); //navigate to specified page
-  };
+  //runs after button press to attempt to interact with metamask
+  const connectWallet = async () => {
+    if (typeof window.ethereum !== 'undefined') {
+      try {
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const accounts = await provider.send("eth_requestAccounts", []);
+        const address = accounts[0];
+        setWalletAddress(address);
 
-  const gologin = async () => {
-    await router.push("/auth/login"); //navigate to specified page
-  };
-
-  const goFakeLogin = async () => {
-    await router.push("/inventory"); //navigate to specified page
+        router.push('/inventory');
+      } catch (error) {
+        console.error("User rejected wallet connection:", error);//person said no
+      }
+    } else {
+      alert("MetaMask is not installed. Please install it to use this app.");//if no Metamask to connect
+    }
   };
 
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <button className={styles.button} onClick={gosignup}>
-          Sign up
-        </button>
-        <button className={styles.button} onClick={gologin}>
-          Login
-        </button>
-        <button className={styles.button} onClick={goFakeLogin}>
-          Fake Login (temp)
-        </button>
-      </main>
+    <div>
+      <h1>Login with MetaMask</h1>
+      <button onClick={connectWallet}>Connect MetaMask</button>
     </div>
   );
 }
