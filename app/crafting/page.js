@@ -4,9 +4,11 @@ import { useState } from "react";
 import Image from "next/image";
 import styles from "./craft.module.css";
 import { useRouter } from 'next/navigation'
+import { useWallet } from '../context/WalletContext';
 
 export default function CraftingPage() {
   const router = useRouter();
+  const {  walletAddress, setWalletAddress } = useWallet(); //need to logout wallets
 
   const [quantity, setQuantity] = useState(1);
 
@@ -19,7 +21,9 @@ export default function CraftingPage() {
   };
 
   const handleSignOut = () => {
-    router.push("/");//navigate to specified page
+    //console.log("Wallet before sign out:", walletAddress); //error testing
+    setWalletAddress(null); //remove account/wallet
+    router.push('/'); //go to login page
   };
 
   const handleGoToInventory = () => {

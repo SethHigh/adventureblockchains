@@ -3,16 +3,20 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import styles from "./raid.module.css";
+import { useWallet } from '../context/WalletContext';
 
 export default function AdventurePage() {
   const router = useRouter();
+  const { walletAddress, setWalletAddress } = useWallet(); //need to logout wallets
 
   const handleGoHome = () => {
     router.push("/");//navigate to specified page
   };
 
   const handleSignOut = () => {
-    router.push("/");//navigate to specified page
+    //console.log("Wallet before sign out:", walletAddress); //error testing
+    setWalletAddress(null); //remove account/wallet
+    router.push('/'); //go to login page
   };
 
   const handleGoCrafting = () => {

@@ -2,16 +2,20 @@
 
 import styles from "./inv.module.css";
 import { useRouter } from "next/navigation";
+import { useWallet } from '../context/WalletContext';
 
 export default function InventoryPage() {
   const router = useRouter();
+  const {  walletAddress, setWalletAddress } = useWallet(); //need to logout wallets
 
   const handleGoHome = () => {
     router.push("/");//navigate to specified page
   };
 
   const handleSignOut = () => {
-    router.push("/");//navigate to specified page
+    //console.log("Wallet before sign out:", walletAddress); //error testing
+    setWalletAddress(null); //remove account/wallet
+    router.push('/'); //go to login page
   };
 
   const handleGoCrafting = () => {

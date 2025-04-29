@@ -3,10 +3,17 @@
 import { useRouter } from 'next/navigation';
 import { ethers } from 'ethers';
 import { useWallet } from './context/WalletContext';
+import {useEffect} from "react";
 
 export default function LoginPage() {
   const router = useRouter();
-  const { setWalletAddress } = useWallet();//set wallet
+  const { walletAddress, setWalletAddress } = useWallet();//set wallet
+
+  //use to ensure login and log out work, commented out when not needed
+  /*
+  useEffect(() => {
+    console.log("Current wallet address on LoginPage:", walletAddress);
+  }, [walletAddress]); */
 
   //runs after button press to attempt to interact with metamask
   const connectWallet = async () => {
