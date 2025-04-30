@@ -3,28 +3,56 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import styles from "./raid.module.css";
-import { useWallet } from '../context/WalletContext';
+import { useWallet } from "../context/WalletContext";
+import { setValue, getValue } from "../lib/storage";
+import { useState } from "react";
+
+// values for raiding
+const RAID_REWARDS = {
+  1: 10,
+  2: 20,
+  3: 30,
+};
 
 export default function AdventurePage() {
   const router = useRouter();
-  const { walletAddress, setWalletAddress } = useWallet(); //need to logout wallets
+  const { walletAddress, setWalletAddress } = useWallet();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleGoHome = () => {
-    router.push("/");//navigate to specified page
+    router.push("/"); // navigate to specified page
   };
 
   const handleSignOut = () => {
-    //console.log("Wallet before sign out:", walletAddress); //error testing
-    setWalletAddress(null); //remove account/wallet
-    router.push('/'); //go to login page
+    setWalletAddress(null); // remove account/wallet
+    router.push('/'); // go to login page
+  };
+  const handleGoAdventure = () => {
+    router.push("/adventure"); // navigate to adventure page
   };
 
-  const handleGoCrafting = () => {
-    router.push("/crafting");//navigate to specified page
+  const handleGoToInventory = () => {
+    router.push("/inventory"); // navigate to specified page
   };
 
-  const handleGoInventory = () => {
-    router.push("/inventory");//navigate to specified page
+  //raids now do things
+  const handleRaidClick = async (raidNumber) => {
+    if (!walletAddress) return alert("Connect wallet first"); //ensure wallet is still connects
+    const pointsToAdd = RAID_REWARDS[raidNumber];
+    if (!pointsToAdd) return;
+
+    setIsLoading(true);
+    //tries to get value then added an amount to the stored value
+    try {
+      const current = await getValue(walletAddress);
+      const updated = current.add(pointsToAdd); // BigNumber addition
+      await setValue(updated);
+      alert(`Raid ${raidNumber} complete! You gained ${pointsToAdd} points.`);
+    } catch (err) { //throws error when failed to get or set value
+      console.error("Error updating points:", err);
+      alert("Something went wrong.");
+    }
+    setIsLoading(false);
   };
 
   return (
@@ -43,16 +71,23 @@ export default function AdventurePage() {
         </button>
 
         <div className={styles.raids}>
-          {[1, 2, 3].map((num) => (
-            <div key={num} className={styles.raidCard}>
+          {[1, 2, 3].map((raidNumber) => (
+            <div
+              key={raidNumber}
+              className={styles.raidCard}
+              onClick={() => handleRaidClick(raidNumber)}
+              style={{ cursor: "pointer", opacity: isLoading ? 0.5 : 1 }}
+            >
               <Image
-                src={`/raid${num}.png`}
-                alt={`Raid ${num}`}
+                src={`/raid${raidNumber}.png`}
+                alt={`Raid ${raidNumber}`}
                 width={200}
                 height={200}
                 className={styles.raidImage}
               />
-              <div className={styles.raidOverlay}>Raid</div>
+              <div className={styles.raidOverlay}>
+                Raid {raidNumber}
+              </div>
             </div>
           ))}
         </div>
