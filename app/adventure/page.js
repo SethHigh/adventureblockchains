@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import styles from "./raid.module.css";
 import { useWallet } from "../context/WalletContext";
-import { setValue, getValue } from "../lib/storage";
+import { setPoints, getPoints } from "../lib/storage";
 import { useState } from "react";
 
 // values for raiding
@@ -27,11 +27,13 @@ export default function AdventurePage() {
     setWalletAddress(null); // remove account/wallet
     router.push('/'); // go to login page
   };
-  const handleGoAdventure = () => {
-    router.push("/adventure"); // navigate to adventure page
+
+
+  const handleGoCrafting = () => {
+    router.push("/crafting"); // navigate to crafting page
   };
 
-  const handleGoToInventory = () => {
+  const handleGoInventory = () => {
     router.push("/inventory"); // navigate to specified page
   };
 
@@ -44,9 +46,9 @@ export default function AdventurePage() {
     setIsLoading(true);
     //tries to get value then added an amount to the stored value
     try {
-      const current = await getValue(walletAddress);
+      const current = await getPoints(walletAddress);
       const updated = current.add(pointsToAdd); // BigNumber addition
-      await setValue(updated);
+      await setPoints(updated);
       alert(`Raid ${raidNumber} complete! You gained ${pointsToAdd} points.`);
     } catch (err) { //throws error when failed to get or set value
       console.error("Error updating points:", err);

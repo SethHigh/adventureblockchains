@@ -5,7 +5,7 @@ import Image from "next/image";
 import styles from "./craft.module.css";
 import { useRouter } from "next/navigation";
 import { useWallet } from "../context/WalletContext";
-import { getValue, setValue } from "../lib/storage"; // Ensure getValue and setValue are imported
+import { getPoints, setPoints, setItemPower, setItemType, getItemPower, getItemType } from "../lib/storage";
 
 export default function CraftingPage() {
   const router = useRouter();
@@ -17,34 +17,60 @@ export default function CraftingPage() {
     router.push("/"); // navigate to specified page
   };
 
-  const handleCraft = async () => {
-    if (!walletAddress) return alert("Connect wallet first");
+  //handle when craft is called
+const handleCraft = async () => {
+  if (!walletAddress) return alert("Connect wallet first");
 
-    // Calculate the total points needed
-    const pointsNeeded = quantity;
+  const pointsNeeded = quantity;
 
-    try {
-      setIsLoading(true);
-      const currentPoints = await getValue(walletAddress); // Get current points from storage
+  try {
+    setIsLoading(true);
+    const currentPoints = await getPoints(walletAddress);
 
-       // Check if the user has enough points
-      if (currentPoints.lt(pointsNeeded)) {
-        //warns not enough points
-        alert("Not enough points to craft the item!");
-        setIsLoading(false);
-        return;
-      }
-      // Subtract points from storage
-      const updatedPoints = currentPoints.sub(pointsNeeded);
-      await setValue(updatedPoints); // Update the points in storage
-      //give pop up giving information
-      alert(`Crafted item worth ${quantity} point(s)! You have ${updatedPoints.toString()} points left.`);
-    } catch (err) {
-      console.error("Error crafting item:", err);
-      alert("Something went wrong.");
+    if (currentPoints.lt(pointsNeeded)) {
+      alert("Not enough points to craft the item!");
+      setIsLoading(false);
+      return;
     }
-    setIsLoading(false);
-  };
+
+    // Deduct points
+    const updatedPoints = currentPoints.sub(pointsNeeded);
+    await setPoints(updatedPoints);
+
+    // Generate new item
+    const newPower = pointsNeeded;
+    const newType = Math.floor(Math.random() * 3) + 1;
+
+    // Fetch previous item
+    const prevPower = await getItemPower(walletAddress);
+    const prevType = await getItemType(walletAddress);
+
+    // Ask wants to keep old item or not
+    const accept = window.confirm(
+      `Crafted item:\n  Power: ${newPower}, Type: ${newType}\n` +
+      `Current item:\n  Power: ${prevPower ?? "None"}, Type: ${prevType ?? "None"}\n\n` +
+      `used ${pointsNeeded} point(s). Do you want to replace your current item with the new one?`
+    );
+    //keep new item
+    if (accept) {
+      await setItemPower(newPower);
+      await setItemType(newType);
+      alert(
+        `New item saved! Power: ${newPower}, Type: ${newType}. Remaining points: ${updatedPoints.toString()}`
+      );
+    } else { //don't keep new item
+      alert(
+        `Points lost:${pointsNeeded}, your old item remains. Remaining points: ${updatedPoints.toString()}`
+      );
+    }
+
+  } catch (err) { //catch error
+    console.error("Error crafting item:", err);
+    alert("Something went wrong.");
+  }
+
+  setIsLoading(false);
+};
 
   const handleSignOut = () => {
     setWalletAddress(null); // remove account/wallet
