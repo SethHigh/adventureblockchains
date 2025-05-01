@@ -49,7 +49,10 @@ const handleCraft = async () => {
     await setPoints(updatedPoints);
 
     // Generate new item
-    const newPower = pointsNeeded;
+    //randomizes power based on variation
+    const variation = 0.35;
+    const randomFactor = 1 + (Math.random() * 2 - 1) * variation;
+    const newPower = Math.floor(pointsNeeded * randomFactor);
     const newType = Math.floor(Math.random() * 3) + 1;
 
     // Fetch previous item
