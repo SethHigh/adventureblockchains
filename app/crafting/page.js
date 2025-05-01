@@ -17,6 +17,17 @@ export default function CraftingPage() {
     router.push("/"); // navigate to specified page
   };
 
+  //set up weapon type nicely
+function getWeaponTypeName(type) {
+  const normalizedType = Number(type);
+  switch (normalizedType) {
+    case 1: return "Holy";
+    case 2: return "Life";
+    case 3: return "Unholy";
+    default: return "Unknown";
+  }
+}
+
   //handle when craft is called
 const handleCraft = async () => {
   if (!walletAddress) return alert("Connect wallet first");
@@ -47,8 +58,8 @@ const handleCraft = async () => {
 
     // Ask wants to keep old item or not
     const accept = window.confirm(
-      `Crafted item:\n  Power: ${newPower}, Type: ${newType}\n` +
-      `Current item:\n  Power: ${prevPower ?? "None"}, Type: ${prevType ?? "None"}\n\n` +
+      `Crafted item:\n  Power: ${newPower}, Type: ${getWeaponTypeName(newType)}\n` +
+      `Current item:\n  Power: ${prevPower ?? "None"}, Type: ${getWeaponTypeName(prevType)}\n\n` +
       `used ${pointsNeeded} point(s). Do you want to replace your current item with the new one?`
     );
     //keep new item
@@ -56,7 +67,7 @@ const handleCraft = async () => {
       await setItemPower(newPower);
       await setItemType(newType);
       alert(
-        `New item saved! Power: ${newPower}, Type: ${newType}. Remaining points: ${updatedPoints.toString()}`
+        `New item saved! Power: ${newPower}, Type: ${getWeaponTypeName(newType)}. Remaining points: ${updatedPoints.toString()}`
       );
     } else { //don't keep new item
       alert(

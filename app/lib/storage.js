@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 
-// Updated ABI of contract
+//ABI of contract
 const storageAbi = [
   {
     "inputs": [{ "internalType": "address", "name": "user", "type": "address" }],
@@ -59,17 +59,18 @@ const storageAbi = [
 
 // Address of contract
 const contractAddress = "0xA481A9c49915194E88def76213F66398e87B2328";
-//calls the contract and gets address again to avoid errors
-async function getContract() {
-  if (typeof window === "undefined") throw new Error("Must run in the browser.");
-  if (typeof window.ethereum === "undefined") await new Promise(resolve => setTimeout(resolve, 100));
-  if (!window.ethereum) throw new Error("MetaMask not found. Please install MetaMask.");
+
+//calls the contract
+export async function getContract() {
+  if (typeof window === "undefined") //check in browser to avoid errors
+    throw new Error("Must run in the browser.");
+  if (!window.ethereum) //ensure metamask is still there
+    throw new Error("MetaMask not found. Please install MetaMask.");
 
   const provider = new ethers.providers.Web3Provider(window.ethereum);
-  await provider.send("eth_requestAccounts", []);
   const signer = provider.getSigner();
 
-  return new ethers.Contract(contractAddress, storageAbi, signer);
+  return new ethers.Contract(contractAddress, storageAbi, signer); //returns contract
 }
 
 // get everything

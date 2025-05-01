@@ -122,3 +122,24 @@
 .inventoryItem:hover {
   background-color: #874021;
 }
+
+.centerText {
+  text-align: center;
+  margin: 8px 0;
+}
+
+.itemImage {
+  width: 50vw;
+  max-width: 200px;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  background-color: #f4f4f4;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+}
+
+.itemDisplay {
+  margin: 16px 0;
+}

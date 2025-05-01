@@ -8,19 +8,30 @@ import { getUserData } from '../lib/storage';
 
 export default function InventoryPage() {
   const router = useRouter();
-  const { walletAddress, setWalletAddress } = useWallet();
+  const {walletAddress, setWalletAddress} = useWallet();
 
   const [points, setPoints] = useState(null);
   const [itemPower, setItemPower] = useState(null);
   const [itemType, setItemType] = useState(null);
 
-  const handleGoHome = () => router.push("/");
-  const handleSignOut = () => {
-    setWalletAddress(null);
-    router.push('/');
+  const {name, recommendation} = getWeaponInfo(itemType);
+
+  const handleGoHome = () => {
+    router.push("/"); // navigate to specified page
   };
-  const handleGoCrafting = () => router.push("/crafting");
-  const handleGoAdventure = () => router.push("/adventure");
+
+  const handleSignOut = () => {
+    setWalletAddress(null); // remove account/wallet
+    router.push("/"); // go to login page
+  };
+
+  const handleGoToCrafting = () => {
+    router.push("/crafting"); // navigate to crafting page
+  };
+
+  const handleGoToAdventure = () => {
+    router.push("/adventure"); // navigate to specified page
+  };
 
   //gets all data about the character
   useEffect(() => {
@@ -39,30 +50,68 @@ export default function InventoryPage() {
     fetchUserData();
   }, [walletAddress]);
 
+  //gives information in a nicer way to user
+  function getWeaponInfo(type) {
+    switch (type) {
+      case "1":
+        return {name: "Holy", recommendation: "We recommend raiding the Crypt."};
+      case "2":
+        return {name: "Life", recommendation: "We recommend raiding the Angels."};
+      case "3":
+        return {name: "Unholy", recommendation: "We recommend raiding the Jungle."};
+      default:
+        return {name: "Unknown", recommendation: ""};
+    }
+  }
+
   return (
-    <div className={styles.container}>
-      <div className={styles.topBar}>
-        <button onClick={handleGoHome} className={styles.iconPlaceholder}></button>
-        <h1 className={styles.title}>Inventory</h1>
-        <button onClick={handleSignOut} className={styles.signout}>Sign out</button>
-      </div>
-
-      <div className={styles.main}>
-        <button onClick={handleGoCrafting} className={styles.section}>
-          <div className={styles.imagePlaceholder}>Crafting</div>
-        </button>
-
-        <div className={styles.inventory}>
-          <h2>Inventory</h2>
-          <p>Points: {points !== null ? points : "Loading..."}</p>
-          <p>Item Power: {itemPower !== null ? itemPower : "Loading..."}</p>
-          <p>Item Type: {itemType !== null ? itemType : "Loading..."}</p>
+      <div className={styles.container}>
+        <div className={styles.topBar}>
+          <button onClick={handleGoHome} className={styles.iconPlaceholder}></button>
+          <h1 className={styles.title}>Inventory</h1>
+          <button onClick={handleSignOut} className={styles.signout}>Sign out</button>
         </div>
 
-        <button onClick={handleGoAdventure} className={styles.section}>
-          <div className={styles.imagePlaceholder}>Adventure</div>
-        </button>
+        <div className={styles.main}>
+          <button onClick={handleGoToCrafting} className={styles.section}>
+            <div className={styles.imagePlaceholder}>Crafting</div>
+          </button>
+
+          <div className={styles.inventory}>
+            <h2 className={styles.centerText}>Inventory</h2>
+
+            <p className={styles.centerText}>
+              Points: {points !== null ? points : "Loading..."}
+            </p>
+
+            {itemType !== null && (
+                <div className={styles.itemDisplay}>
+                  <img
+                      src={`/weapons/type${itemType}.png`}
+                      alt={`Weapon Type ${itemType}`}
+                      className={styles.itemImage}
+                  />
+                  {(() => {
+                    const {name, recommendation} = getWeaponInfo(itemType);
+                    return (
+                        <>
+                          <p className={styles.centerText}>
+                            {name} Power: {itemPower !== null ? itemPower : "Loading..."}
+                          </p>
+                          <p className={styles.centerText} style={{fontStyle: "italic", color: "#666"}}>
+                            {recommendation}
+                          </p>
+                        </>
+                    );
+                  })()}
+                </div>
+            )}
+          </div>
+
+          <button onClick={handleGoToAdventure} className={styles.section}>
+            <div className={styles.imagePlaceholder}>Adventure</div>
+          </button>
+        </div>
       </div>
-    </div>
   );
 }

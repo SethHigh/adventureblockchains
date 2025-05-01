@@ -29,11 +29,11 @@ export default function AdventurePage() {
   };
 
 
-  const handleGoCrafting = () => {
+  const handleGoToCrafting = () => {
     router.push("/crafting"); // navigate to crafting page
   };
 
-  const handleGoInventory = () => {
+  const handleGoToInventory = () => {
     router.push("/inventory"); // navigate to specified page
   };
 
@@ -68,33 +68,57 @@ export default function AdventurePage() {
       </div>
 
       <div className={styles.main}>
-        <button onClick={handleGoInventory} className={styles.section}>
+        <button onClick={handleGoToInventory} className={styles.section}>
           <div className={styles.imagePlaceholder}>Inventory</div>
         </button>
 
         <div className={styles.raids}>
-          {[1, 2, 3].map((raidNumber) => (
-            <div
-              key={raidNumber}
-              className={styles.raidCard}
-              onClick={() => handleRaidClick(raidNumber)}
-              style={{ cursor: "pointer", opacity: isLoading ? 0.5 : 1 }}
+          <div
+            className={styles.raidCard}
+            onClick={() => handleRaidClick(1)}
+            style={{ cursor: "pointer", opacity: isLoading ? 0.5 : 1 }}
             >
-              <Image
-                src={`/raid${raidNumber}.png`}
-                alt={`Raid ${raidNumber}`}
+            <Image
+                src="/raid1.png"
+                alt="Raid the Demons"
                 width={200}
                 height={200}
                 className={styles.raidImage}
-              />
-              <div className={styles.raidOverlay}>
-                Raid {raidNumber}
-              </div>
+            />
+            <div className={styles.raidOverlay}>Raid the Demons</div>
+          </div>
+
+          <div
+              className={styles.raidCard}
+              onClick={() => handleRaidClick(2)}
+              style={{ cursor: "pointer", opacity: isLoading ? 0.5 : 1 }}
+          >
+            <Image
+                src="/raid2.png"
+                alt="Raid the Angels"
+                width={200}
+                height={200}
+                className={styles.raidImage}
+            />
+            <div className={styles.raidOverlay}>Raid the Angels</div>
             </div>
-          ))}
+          <div
+            className={styles.raidCard}
+            onClick={() => handleRaidClick(3)}
+            style={{ cursor: "pointer", opacity: isLoading ? 0.5 : 1 }}
+          >
+            <Image
+              src="/raid3.png"
+              alt="Raid the Jungle"
+              width={200}
+              height={200}
+              className={styles.raidImage}
+            />
+            <div className={styles.raidOverlay}>Raid the Jungle</div>
+          </div>
         </div>
 
-        <button onClick={handleGoCrafting} className={styles.section}>
+        <button onClick={handleGoToCrafting} className={styles.section}>
           <div className={styles.imagePlaceholder}>Crafting</div>
         </button>
       </div>
