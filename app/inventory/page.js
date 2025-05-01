@@ -54,11 +54,11 @@ export default function InventoryPage() {
   function getWeaponInfo(type) {
     switch (type) {
       case "1":
-        return {name: "Holy", recommendation: "We recommend raiding the Crypt."};
+        return {name: "Holy", recommendation: "We recommend raiding the Demons."};
       case "2":
         return {name: "Life", recommendation: "We recommend raiding the Angels."};
       case "3":
-        return {name: "Unholy", recommendation: "We recommend raiding the Jungle."};
+        return {name: "Unholy", recommendation: "We recommend raiding the Druids."};
       default:
         return {name: "Unknown", recommendation: ""};
     }
