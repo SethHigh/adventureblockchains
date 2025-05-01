@@ -2,7 +2,11 @@ import { ethers } from "ethers";
 
 // ABI of the RaidCountandCheck contract
 const raidAbi = [
-  { "inputs": [], "stateMutability": "nonpayable", "type": "constructor" },
+  {
+    "inputs": [],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
   {
     "inputs": [],
     "name": "angelIncrease",
@@ -13,7 +17,13 @@ const raidAbi = [
   {
     "inputs": [],
     "name": "angelRaidMod",
-    "outputs": [{ "internalType": "int256", "name": "", "type": "int256" }],
+    "outputs": [
+      {
+        "internalType": "int256",
+        "name": "",
+        "type": "int256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -27,7 +37,13 @@ const raidAbi = [
   {
     "inputs": [],
     "name": "demonRaidMod",
-    "outputs": [{ "internalType": "int256", "name": "", "type": "int256" }],
+    "outputs": [
+      {
+        "internalType": "int256",
+        "name": "",
+        "type": "int256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -41,7 +57,13 @@ const raidAbi = [
   {
     "inputs": [],
     "name": "druidRaidMod",
-    "outputs": [{ "internalType": "int256", "name": "", "type": "int256" }],
+    "outputs": [
+      {
+        "internalType": "int256",
+        "name": "",
+        "type": "int256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -49,10 +71,26 @@ const raidAbi = [
     "inputs": [],
     "name": "getRaidStats",
     "outputs": [
-      { "internalType": "int256", "name": "_angelRaidMod", "type": "int256" },
-      { "internalType": "int256", "name": "_demonRaidMod", "type": "int256" },
-      { "internalType": "int256", "name": "_druidRaidMod", "type": "int256" },
-      { "internalType": "uint256", "name": "_totalRaids", "type": "uint256" }
+      {
+        "internalType": "int256",
+        "name": "_angelRaidMod",
+        "type": "int256"
+      },
+      {
+        "internalType": "int256",
+        "name": "_demonRaidMod",
+        "type": "int256"
+      },
+      {
+        "internalType": "int256",
+        "name": "_druidRaidMod",
+        "type": "int256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_totalRaids",
+        "type": "uint256"
+      }
     ],
     "stateMutability": "view",
     "type": "function"
@@ -60,14 +98,20 @@ const raidAbi = [
   {
     "inputs": [],
     "name": "totalRaids",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   }
 ];
 
 // Address of the deployed contract
-const raidContractAddress = "0x65006793E03ca698235d03bF34C58f17E10a8208";
+const raidContractAddress = "0xd888283b6EA48c3cD6E856015b44BfD28f47f37d";
 
 // Get contract instance
 export async function getRaidContract() {
