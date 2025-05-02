@@ -13,10 +13,6 @@ export default function CraftingPage() {
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleGoHome = () => {
-    router.push("/"); // navigate to specified page
-  };
-
   //set up weapon type nicely
 function getWeaponTypeName(type) {
   const normalizedType = Number(type);
@@ -87,34 +83,56 @@ const handleCraft = async () => {
 };
 
   const handleSignOut = () => {
+    if (isLoading) return; //prevents leaving page while waiting on event
     setWalletAddress(null); // remove account/wallet
     router.push("/"); // go to login page
   };
 
   const handleGoToInventory = () => {
+    if (isLoading) return; //prevents leaving page while waiting on event
     router.push("/inventory"); // navigate to specified page
   };
 
   const handleGoToAdventure = () => {
+    if (isLoading) return; //prevents leaving page while waiting on event
     router.push("/adventure"); // navigate to specified page
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.topBar}>
-        <button onClick={handleGoHome} className={styles.iconPlaceholder}></button>
+        <Image
+            src="/images/icon.png"
+            alt="Icon"
+            width={40}
+            height={40}
+            className={styles.icon}
+          />
         <h1 className={styles.title}>Crafting</h1>
-        <button onClick={handleSignOut} className={styles.signout}>Sign out</button>
+        <button onClick={handleSignOut} className={styles.signout} disabled={isLoading}>Sign out</button>
       </div>
 
       <div className={styles.main}>
-        <button onClick={handleGoToAdventure} className={styles.section}>
-          <div className={styles.imagePlaceholder}>Adventure</div>
-        </button>
+        <button onClick={handleGoToAdventure} className={styles.section} disabled={isLoading}>
+            <div className={styles.imageButton}>
+              <Image
+                  src="/images/adventure.png"
+                  alt="adventure entrance"
+                  fill
+                  style={{ objectFit: 'cover', borderRadius: '12px' }}
+              />
+              <span className={styles.imageButtonText}>Adventure</span>
+            </div>
+          </button>
 
         <div className={styles.craftingCenter}>
           <div className={styles.craftImage}>
-            <Image src="/crafting-icon.png" alt="Craft Item" width={150} height={150} />
+            <Image
+                src="/images/blacksmith.png"
+                alt="blacksmith"
+                fill
+                style={{ objectFit: 'contain', borderRadius: '8px' }}
+            />
           </div>
 
           <button
@@ -137,9 +155,17 @@ const handleCraft = async () => {
           </div>
         </div>
 
-        <button onClick={handleGoToInventory} className={styles.section}>
-          <div className={styles.imagePlaceholder}>Inventory</div>
-        </button>
+        <button onClick={handleGoToInventory} className={styles.section} disabled={isLoading}>
+            <div className={styles.imageButton}>
+              <Image
+                  src="/images/Inventory.png"
+                  alt="inventory building"
+                  fill
+                  style={{ objectFit: 'cover', borderRadius: '12px' }}
+              />
+              <span className={styles.imageButtonText}>Inventory</span>
+            </div>
+          </button>
       </div>
     </div>
   );

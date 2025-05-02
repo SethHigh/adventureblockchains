@@ -5,6 +5,7 @@ import styles from "./inv.module.css";
 import { useRouter } from "next/navigation";
 import { useWallet } from '../context/WalletContext';
 import { getUserData } from '../lib/storage';
+import Image from 'next/image';
 
 export default function InventoryPage() {
   const router = useRouter();
@@ -15,10 +16,6 @@ export default function InventoryPage() {
   const [itemType, setItemType] = useState(null);
 
   const {name, recommendation} = getWeaponInfo(itemType);
-
-  const handleGoHome = () => {
-    router.push("/"); // navigate to specified page
-  };
 
   const handleSignOut = () => {
     setWalletAddress(null); // remove account/wallet
@@ -67,15 +64,30 @@ export default function InventoryPage() {
   return (
       <div className={styles.container}>
         <div className={styles.topBar}>
-          <button onClick={handleGoHome} className={styles.iconPlaceholder}></button>
+          <Image
+            src="/images/icon.png"
+            alt="Icon"
+            width={40}
+            height={40}
+            className={styles.icon}
+          />
           <h1 className={styles.title}>Inventory</h1>
           <button onClick={handleSignOut} className={styles.signout}>Sign out</button>
         </div>
 
         <div className={styles.main}>
           <button onClick={handleGoToCrafting} className={styles.section}>
-            <div className={styles.imagePlaceholder}>Crafting</div>
+            <div className={styles.imageButton}>
+              <Image
+                  src="/images/blacksmithBuilding.png"
+                  alt="Blacksmith Building"
+                  fill
+                  style={{ objectFit: 'cover', borderRadius: '12px' }}
+              />
+              <span className={styles.imageButtonText}>Crafting</span>
+            </div>
           </button>
+
 
           <div className={styles.inventory}>
             <h2 className={styles.centerText}>Inventory</h2>
@@ -87,7 +99,7 @@ export default function InventoryPage() {
             {itemType !== null && (
                 <div className={styles.itemDisplay}>
                   <img
-                      src={`/weapons/type${itemType}.png`}
+                      src={`/images/type${itemType}.png`}
                       alt={`Weapon Type ${itemType}`}
                       className={styles.itemImage}
                   />
@@ -98,7 +110,7 @@ export default function InventoryPage() {
                           <p className={styles.centerText}>
                             {name} Power: {itemPower !== null ? itemPower : "Loading..."}
                           </p>
-                          <p className={styles.centerText} style={{fontStyle: "italic", color: "#666"}}>
+                          <p className={styles.centerText} style={{fontStyle: "italic"}}>
                             {recommendation}
                           </p>
                         </>
@@ -108,8 +120,16 @@ export default function InventoryPage() {
             )}
           </div>
 
-          <button onClick={handleGoToAdventure} className={styles.section}>
-            <div className={styles.imagePlaceholder}>Adventure</div>
+        <button onClick={handleGoToAdventure} className={styles.section}>
+            <div className={styles.imageButton}>
+              <Image
+                  src="/images/adventure.png"
+                  alt="adventure entrance"
+                  fill
+                  style={{ objectFit: 'cover', borderRadius: '12px' }}
+              />
+              <span className={styles.imageButtonText}>Adventure</span>
+            </div>
           </button>
         </div>
       </div>

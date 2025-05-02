@@ -8,7 +8,7 @@ import { setPoints, getPoints, getItemPower, getItemType } from "../lib/storage"
 import { useState } from "react";
 import { getRaidStats, angelIncrease, demonIncrease, druidIncrease } from "../lib/RaidStats";
 
-// base multiplier for editing
+// base multiplier for editing rewards
 const RAID_REWARDS = {
   1: 1,
   2: 1,
@@ -45,21 +45,21 @@ export default function AdventurePage() {
   const [raidStats, setRaidStats] = useState(null);
   const [showStats, setShowStats] = useState(false);
 
-  const handleGoHome = () => {
-    router.push("/"); // navigate to specified page
-  };
 
   const handleSignOut = () => {
+    if (isLoading) return; //prevents leaving page while waiting on event
     setWalletAddress(null); // remove account/wallet
     router.push('/'); // go to login page
   };
 
 
   const handleGoToCrafting = () => {
+    if (isLoading) return; //prevents leaving page while waiting on event
     router.push("/crafting"); // navigate to crafting page
   };
 
   const handleGoToInventory = () => {
+    if (isLoading) return; //prevents leaving page while waiting on event
     router.push("/inventory"); // navigate to specified page
   };
 
@@ -170,17 +170,31 @@ const handleCloseRaidStats = () => {
   return (
     <div className={styles.container}>
       <div className={styles.topBar}>
-        <button onClick={handleGoHome} className={styles.iconPlaceholder} />
+          <Image
+            src="/images/icon.png"
+            alt="Icon"
+            width={40}
+            height={40}
+            className={styles.icon}
+          />
         <h1 className={styles.title}>Adventure Page</h1>
-        <button onClick={handleSignOut} className={styles.signout}>
+        <button onClick={handleSignOut} className={styles.signout} disabled={isLoading}>
           Sign out
         </button>
       </div>
 
       <div className={styles.main}>
-        <button onClick={handleGoToInventory} className={styles.section}>
-          <div className={styles.imagePlaceholder}>Inventory</div>
-        </button>
+        <button onClick={handleGoToInventory} className={styles.section} disabled={isLoading}>
+            <div className={styles.imageButton}>
+              <Image
+                  src="/images/Inventory.png"
+                  alt="inventory building"
+                  fill
+                  style={{ objectFit: 'cover', borderRadius: '12px' }}
+              />
+              <span className={styles.imageButtonText}>Inventory</span>
+            </div>
+          </button>
 
         <div className={styles.raids}>
           <div className={styles.raidStatsButtonWrapper}>
@@ -196,9 +210,9 @@ const handleCloseRaidStats = () => {
           {showStats && raidStats && (
             <div className={styles.popupModal}>
               <h3>Raid Stats</h3>
-              <p><strong>Demon Modifier:</strong> {raidStats.demonRaidMod}</p>
-              <p><strong>Angel Modifier:</strong> {raidStats.angelRaidMod}</p>
-              <p><strong>Druid Modifier:</strong> {raidStats.druidRaidMod}</p>
+              <p><strong>Demon Raids:</strong> {raidStats.demonRaidMod}</p>
+              <p><strong>Angel Raids</strong> {raidStats.angelRaidMod}</p>
+              <p><strong>Druid Raids:</strong> {raidStats.druidRaidMod}</p>
               <p><strong>Total Raids:</strong> {raidStats.totalRaids}</p>
               <button onClick={handleCloseRaidStats}>Close</button>
             </div>
@@ -206,53 +220,61 @@ const handleCloseRaidStats = () => {
 
           <div
             className={styles.raidCard}
-            onClick={() => handleRaidClick(1)}
+            onClick={() => !isLoading && handleRaidClick(1)}
             style={{ opacity: isLoading ? 0.5 : 1 }}
           >
             <Image
-              src="/raid1.png"
+              src="/images/demons.png"
               alt="Raid the Demons"
               width={200}
               height={200}
-              className={styles.raidImage}
+              className={styles.raidImage1}
             />
             <div className={styles.raidOverlay}>Raid the Demons</div>
           </div>
 
           <div
             className={styles.raidCard}
-            onClick={() => handleRaidClick(2)}
+            onClick={() => !isLoading && handleRaidClick(2)}
             style={{ opacity: isLoading ? 0.5 : 1 }}
           >
             <Image
-              src="/raid2.png"
+              src="/images/angels.png"
               alt="Raid the Angels"
               width={200}
               height={200}
-              className={styles.raidImage}
+              className={styles.raidImage2}
             />
             <div className={styles.raidOverlay}>Raid the Angels</div>
           </div>
 
           <div
             className={styles.raidCard}
-            onClick={() => handleRaidClick(3)}
+            onClick={() => !isLoading && handleRaidClick(3)}
             style={{ opacity: isLoading ? 0.5 : 1 }}
           >
             <Image
-              src="/raid3.png"
+              src="/images/druids.png"
               alt="Raid the Druids"
               width={200}
               height={200}
-              className={styles.raidImage}
+              className={styles.raidImage3}
             />
             <div className={styles.raidOverlay}>Raid the Druids</div>
           </div>
         </div>
 
-        <button onClick={handleGoToCrafting} className={styles.section}>
-          <div className={styles.imagePlaceholder}>Crafting</div>
-        </button>
+        <button onClick={handleGoToCrafting} className={styles.section} disabled={isLoading}>
+            <div className={styles.imageButton}>
+              <Image
+                  src="/images/blacksmithBuilding.png"
+                  alt="blacksmith building"
+                  fill
+                  style={{ objectFit: 'cover', borderRadius: '12px' }}
+              />
+              <span className={styles.imageButtonText}>Crafting</span>
+            </div>
+          </button>
       </div>
     </div>
   );
