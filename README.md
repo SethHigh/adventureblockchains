@@ -13,3 +13,5 @@ Crafting: use points to create items that will gain power based on points put in
 currently raids give an amount based on weapon strength that is 1:1, then it gets modified based on certain conditions. In the future this would get reduced to slow player growth to help it feel better as a game
 
 raids also currently can just be done whenever, if this wsa gonna be sent out more I may put a timer or something else on it to limit runs to help gamify it more so growth feels more earned and not just spamming a button
+
+ai images were made using https://www.craiyon.com/
