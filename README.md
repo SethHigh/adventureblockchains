@@ -1,36 +1,15 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+A nextJS project that use blockchain to store information and connect users
 
-## Getting Started
+The project is an adventure game with 3 main page
 
-First, run the development server:
+Inventory: displays stats about your accounts
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Raids: mechanic for getting points based on certain conditions
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Such as: how often that raid is done compared to others, amount of power your item has, and type of item
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Crafting: use points to create items that will gain power based on points put in and a random element/type
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+currently raids give an amount based on weapon strength that is 1:1, then it gets modified based on certain conditions. In the future this would get reduced to slow player growth to help it feel better as a game
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+raids also currently can just be done whenever, if this wsa gonna be sent out more I may put a timer or something else on it to limit runs to help gamify it more so growth feels more earned and not just spamming a button
